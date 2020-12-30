@@ -1,3 +1,7 @@
+resource "aws_ses_email_identity" "notify_email" {
+  email = "trade-tariff-support@enginegroup.com"
+}
+
 resource "aws_ses_domain_identity" "tariff_domain" {
   domain = "trade-tariff.service.gov.uk"
 }
