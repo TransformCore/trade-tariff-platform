@@ -60,6 +60,7 @@ data "aws_route53_zone" "selected" {
 resource "aws_route53_record" "cdn-record" {
   name = "api-dev.trade-tariff.service.gov.uk"
   type = "CNAME"
+  ttl = 60
   records = [aws_cloudfront_distribution.distribution.domain_name]
   zone_id = data.aws_route53_zone.selected.id
 }
