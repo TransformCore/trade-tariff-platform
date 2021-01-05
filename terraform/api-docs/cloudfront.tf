@@ -18,7 +18,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   is_ipv6_enabled = true
   price_class     = "PriceClass_100"
 
-  aliases = var.aliases
+  aliases = concat([var.fqdn],var.aliases,)
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]

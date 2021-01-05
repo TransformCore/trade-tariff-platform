@@ -1,0 +1,3 @@
+bucket = "trade-tariff-terraform-state"
+key    = "api-docs-development"
+region = "eu-west-2"
