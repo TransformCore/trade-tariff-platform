@@ -149,7 +149,7 @@ resource "aws_cloudfront_distribution" "this" {
   }
 }
 
-resource "aws_route53_record" "cdn-record" {
+resource "aws_route53_record" "cloudfront_record" {
   count   = length(var.aliases)
   name    = element(var.aliases, count.index)
   type    = "CNAME"

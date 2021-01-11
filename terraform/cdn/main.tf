@@ -84,7 +84,7 @@ module "acm" {
 
   source = "../modules/acm"
 
-  hostname        = var.cdn_aliases[0]
-  sans            = slice(var.cdn_aliases, 1, length(var.cdn_aliases))
+  domain_name        = var.cdn_aliases[0]
+  subject_alternative_names            = slice(var.cdn_aliases, 1, length(var.cdn_aliases))
   route53_zone_id = data.aws_route53_zone.selected.id
 }

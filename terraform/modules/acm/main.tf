@@ -1,6 +1,6 @@
-resource "aws_acm_certificate" "cdn_certificate" {
-  domain_name               = var.hostname
-  subject_alternative_names = var.sans
+resource "aws_acm_certificate" "this" {
+  domain_name               = var.domain_name
+  subject_alternative_names = var.subject_alternative_names
   validation_method         = "DNS"
 
   lifecycle {
@@ -10,7 +10,7 @@ resource "aws_acm_certificate" "cdn_certificate" {
 
 resource "aws_route53_record" "validation_records" {
   for_each = {
-    for dvo in aws_acm_certificate.cdn_certificate.domain_validation_options : dvo.domain_name => {
+    for dvo in aws_acm_certificate.this.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type
@@ -26,6 +26,6 @@ resource "aws_route53_record" "validation_records" {
 }
 
 resource "aws_acm_certificate_validation" "validation" {
-  certificate_arn         = aws_acm_certificate.cdn_certificate.arn
+  certificate_arn         = aws_acm_certificate.this.arn
   validation_record_fqdns = [for record in aws_route53_record.validation_records : record.fqdn]
 }
