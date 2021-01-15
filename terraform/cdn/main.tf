@@ -51,7 +51,7 @@ module "cdn" {
 
       compress        = true
       cookies_forward = "all"
-      headers         = ["*"]
+      headers         = []
       query_string    = true
 
       allowed_methods = [
@@ -73,7 +73,11 @@ module "cdn" {
   }
   viewer_certificate = {
     ssl_support_method  = "sni-only"
-    acm_certificate_arn = module.acm.certificate_arn
+    acm_certificate_arn = module.acm.aws_acm_certificate_arn
+
+    depends_on = [
+      module.acm.aws_acm_certificate_arn
+    ]
   }
 }
 
