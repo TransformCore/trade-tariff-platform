@@ -52,6 +52,8 @@ module "cdn" {
       default_ttl = 0
       max_ttl     = 0
 
+      compress = true
+
       allowed_methods = [
         "GET",
         "HEAD",
