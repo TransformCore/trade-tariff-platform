@@ -46,13 +46,13 @@ module "cdn" {
       target_origin_id       = "frontend-govpaas-${var.environment_name}"
       viewer_protocol_policy = "redirect-to-https"
 
+      cache_policy_id = aws_cloudfront_cache_policy.cache_all_qsa.id
+      origin_request_policy_id = aws_cloudfront_origin_request_policy.forward_all_qsa.id
+
       default_ttl = 0
       max_ttl     = 0
 
-      compress        = true
-      cookies_forward = "all"
-      headers         = []
-      query_string    = true
+      compress = true
 
       allowed_methods = [
         "GET",
