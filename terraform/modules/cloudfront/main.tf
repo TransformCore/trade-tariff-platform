@@ -92,16 +92,26 @@ resource "aws_cloudfront_distribution" "this" {
       default_ttl = lookup(i.value, "default_ttl", null)
       max_ttl     = lookup(i.value, "max_ttl", null)
 
+      cache_policy_id = i.value["cache_policy_id"]
+      origin_request_policy_id = i.value["origin_request_policy_id"]
+
+# TODO: Revisit after Terraform issue is fixed
+# This block should be ignored and removed from the plan  by terraform then cache_policy_id is used.
+# https://github.com/hashicorp/terraform-provider-aws/issues/17626
+
+
+      /*
       forwarded_values {
         query_string            = lookup(i.value, "query_string", false)
         query_string_cache_keys = lookup(i.value, "query_string_cache_keys", [])
-        headers                 = lookup(i.value, "headers", null)
+        headers                 = lookup(i.value, "headers", [])
 
         cookies {
           forward           = lookup(i.value, "cookies_forward", "none")
-          whitelisted_names = lookup(i.value, "cookies_whitelisted_names", null)
+          whitelisted_names = lookup(i.value, "cookies_whitelisted_names", [])
         }
       }
+      */
 
       dynamic "lambda_function_association" {
         for_each = lookup(i.value, "lambda_function_association", [])
