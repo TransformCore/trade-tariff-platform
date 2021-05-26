@@ -13,4 +13,5 @@ output "iam_id" {
 
 output "secret" {
   value = aws_iam_access_key.service-account.secret
+  sensitive = true
 }
